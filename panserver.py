@@ -356,12 +356,19 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Run a local markdown compiling server')
 
     parser.add_argument('-a', '--no-refresh', action='store_false',
+                        help="Don't refresh the page",
                         dest='autorefresh')
-    parser.add_argument('-p', '--port', type=int, default=10543)
+    parser.add_argument('-p', '--port', type=int, default=10543,
+                        help="Port to be opened, default is 10543",
+                       )
     parser.add_argument('-b', '--no-open-browser', action='store_false',
+                        help="Don't open browser",
                         dest='open_browser')
-    parser.add_argument('-r', action='store_true')
-    parser.add_argument('path', nargs='?')
+    parser.add_argument('-r', action='store_true',
+                        help="""Allow remote access to this server.
+                        Warning! can be extremely dangerous!"""
+                       )
+    parser.add_argument('path', nargs='?', help="Path to directory")
     config = parser.parse_args()
 
     create_header(config.autorefresh)
