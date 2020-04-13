@@ -129,6 +129,8 @@ def compile_document(name, fmt):
 
         #combine action based on format
         action = ['pandoc']
+        # Format to use GFM"
+        action.append("--from=gfm")
 
         if fmt == 'std':
             action += ['-H', headerfile, '-B', topmenufile,]
@@ -353,14 +355,16 @@ if __name__ == '__main__':
 
     parser = argparse.ArgumentParser(description='Run a local markdown compiling server')
 
-    parser.add_argument('-a', action='store_const', const=True)
-    parser.add_argument('-p', '--port', type=int, default=8080)
-    parser.add_argument('-b', action='store_const', const=True)
-    parser.add_argument('-r', action='store_const', const=True)
+    parser.add_argument('-a', '--no-refresh', action='store_false',
+                        dest='autorefresh')
+    parser.add_argument('-p', '--port', type=int, default=10543)
+    parser.add_argument('-b', '--no-open-browser', action='store_false',
+                        dest='open_browser')
+    parser.add_argument('-r', action='store_true')
     parser.add_argument('path', nargs='?')
     config = parser.parse_args()
 
-    create_header(config.a)
+    create_header(config.autorefresh)
     create_header_export()
     create_topmenufile()
     create_beforefile()
@@ -373,7 +377,7 @@ if __name__ == '__main__':
         else:
             raise Exception('Unknown path argument')
 
-    if config.b:
+    if config.open_browser:
         webbrowser.get().open('http://localhost:{}/'.format(config.port))
 
     host = 'localhost'
