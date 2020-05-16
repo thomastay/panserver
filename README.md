@@ -10,6 +10,11 @@ Features include:
 - inline math
 - rendering of inline `dot` and `plantuml` diagrams
 
+## Changes of this fork (thomastay)
+The changes are very minor. Namely, the default is now to open a browser window, and to set the page to autorefresh by default, and it opens a page on port 10543 instead of 8080 (as I use 8080 for other things). 
+Also, it uses the Github-Flavored markdown option in Pandoc (requires Pandoc >= 2.6)
+
+
 ## Quick Start
 
 Run the command
